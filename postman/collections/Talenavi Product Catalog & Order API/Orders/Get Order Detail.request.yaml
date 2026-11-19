@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  **Detail Pesanan**
+
+  Endpoint ini digunakan untuk menampilkan detail pesanan berdasarkan ID pesanan milik pengguna yang sedang login.
+
+  **Autentikasi:** Bearer Token wajib disertakan.
+
+  **Path Parameter:**
+
+  - `id`: ID pesanan yang ingin ditampilkan.
+      
+
+  **Respons berhasil:** Menampilkan informasi order, daftar item pesanan, kuantitas, harga, dan informasi produk.
+
+  **Respons gagal:** `404 Not Found` jika pesanan tidak ditemukan atau bukan milik pengguna yang sedang login.
+url: "{{base_url}}/orders/1"
+method: GET
+order: 3000

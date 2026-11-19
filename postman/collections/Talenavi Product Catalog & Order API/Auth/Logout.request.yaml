@@ -1,0 +1,14 @@
+$kind: http-request
+description: |-
+  **Logout Pengguna**
+
+  Endpoint ini digunakan untuk mengakhiri sesi autentikasi pengguna dengan menghapus token akses yang sedang digunakan.
+
+  **Autentikasi:** Bearer Token wajib disertakan.
+
+  **Respons berhasil:** Token akses pengguna yang sedang digunakan akan dihapus sehingga tidak dapat digunakan kembali.
+
+  **Respons gagal:** Mengembalikan status `401 Unauthorized` jika pengguna tidak terautentikasi.
+url: "{{base_url}}/logout"
+method: POST
+order: 5000

@@ -1,0 +1,30 @@
+$kind: http-request
+description: |-
+  **Login Pengguna**
+
+  Endpoint ini digunakan untuk mengautentikasi pengguna menggunakan email dan kata sandi yang telah terdaftar.
+
+  **Body Request:**
+
+  - `email`: Email pengguna yang terdaftar.
+      
+  - `password`: Kata sandi pengguna.
+      
+
+  **Respons berhasil:** Mengembalikan informasi pengguna dan token autentikasi yang digunakan untuk mengakses endpoint yang memerlukan login.
+
+  **Respons gagal:** Mengembalikan pesan kesalahan jika email atau kata sandi tidak valid.
+url: "{{base_url}}/login"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"email\": \"test@example.com\",\r
+
+    \  \"password\": \"password\"\r
+
+    }"
+auth:
+  type: noauth
+order: 3000

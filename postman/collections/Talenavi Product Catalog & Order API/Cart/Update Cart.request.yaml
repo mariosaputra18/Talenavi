@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  **Perbarui Keranjang Belanja**
+
+  Endpoint ini digunakan untuk mengubah jumlah produk pada item keranjang belanja milik pengguna.
+
+  **Autentikasi:** Bearer Token wajib disertakan.
+
+  **Path Parameter:**
+
+  - `id`: ID item keranjang yang ingin diperbarui.
+      
+
+  **Body Request:**
+
+  - `quantity`: Jumlah produk baru, minimal 1.
+      
+
+  **Respons berhasil:** Mengembalikan data item keranjang setelah jumlah produk diperbarui.
+
+  **Respons gagal:** Mengembalikan status `422 Unprocessable Entity` jika quantity tidak valid atau melebihi stok, serta jika item keranjang tidak ditemukan.
+url: "{{base_url}}/cart/3"
+method: PUT
+body:
+  type: json
+  content: "{\r\n  \"quantity\": 3\r\n}"
+order: 3000

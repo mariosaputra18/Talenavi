@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  **Hapus Item Keranjang**
+
+  Endpoint ini digunakan untuk menghapus satu item dari keranjang belanja pengguna yang sedang login.
+
+  **Autentikasi:** Bearer Token wajib disertakan.
+
+  **Path Parameter:**
+
+  - `id`: ID item keranjang yang ingin dihapus.
+      
+
+  **Respons berhasil:** Mengembalikan pesan konfirmasi penghapusan item.
+
+  **Respons gagal:** `404 Not Found` jika item keranjang tidak ditemukan atau bukan milik pengguna yang sedang login.
+url: "{{base_url}}/cart/3"
+method: DELETE
+order: 4000

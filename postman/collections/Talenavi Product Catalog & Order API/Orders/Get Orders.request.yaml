@@ -1,0 +1,14 @@
+$kind: http-request
+description: |-
+  **Riwayat Pesanan**
+
+  Endpoint ini digunakan untuk menampilkan daftar pesanan milik pengguna yang sedang login.
+
+  **Autentikasi:** Bearer Token wajib disertakan.
+
+  **Respons berhasil:** Menampilkan daftar pesanan beserta informasi order dan pagination.
+
+  **Respons gagal:** `401 Unauthorized` jika token tidak valid atau tidak disertakan.
+url: "{{base_url}}/orders"
+method: GET
+order: 2000

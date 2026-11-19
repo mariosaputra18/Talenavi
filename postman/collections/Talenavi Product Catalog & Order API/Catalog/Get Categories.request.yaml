@@ -1,0 +1,16 @@
+$kind: http-request
+description: |-
+  **Daftar Kategori Produk**
+
+  Endpoint ini digunakan untuk menampilkan seluruh kategori produk yang tersedia di katalog.
+
+  **Autentikasi:** Tidak diperlukan.
+
+  **Respons berhasil:** Mengembalikan daftar kategori beserta ID, slug, dan nama kategori.
+url: "{{base_url}}/categories"
+method: GET
+headers:
+  Accept: application/json
+auth:
+  type: noauth
+order: 1000

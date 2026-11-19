@@ -1,0 +1,27 @@
+$kind: http-request
+description: |-
+  **Checkout Pesanan**
+
+  Endpoint ini digunakan untuk memproses seluruh item dalam keranjang belanja menjadi sebuah pesanan.
+
+  **Autentikasi:** Bearer Token wajib disertakan.
+
+  **Request Body:** Tidak diperlukan.
+
+  **Proses:**
+
+  - Memvalidasi keranjang belanja dan ketersediaan stok.
+      
+  - Membuat order dan order items.
+      
+  - Mengurangi stok produk.
+      
+  - Menghapus isi keranjang setelah checkout berhasil.
+      
+
+  **Respons berhasil:** `201 Created` jika pesanan berhasil dibuat.
+
+  **Respons gagal:** `422 Unprocessable Entity` jika keranjang kosong atau stok tidak mencukupi. Jika checkout gagal, stok, keranjang, dan data order tidak mengalami perubahan.
+url: "{{base_url}}/checkout"
+method: POST
+order: 1000

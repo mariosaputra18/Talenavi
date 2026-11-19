@@ -1,0 +1,32 @@
+$kind: http-request
+description: |-
+  **Tambah Produk ke Keranjang**
+
+  Endpoint ini digunakan untuk menambahkan produk ke keranjang belanja pengguna yang sedang login.
+
+  **Autentikasi:** Bearer Token wajib disertakan.
+
+  **Body Request:**
+
+  - `product_id`: ID produk yang ingin ditambahkan.
+      
+  - `quantity`: Jumlah produk yang ingin ditambahkan, minimal 1.
+      
+
+  Jika produk sudah ada di keranjang, quantity akan ditambahkan ke jumlah sebelumnya.
+
+  **Respons berhasil:** Mengembalikan data item keranjang yang berhasil ditambahkan.
+
+  **Respons gagal:** Mengembalikan status `422 Unprocessable Entity` jika validasi gagal atau jumlah produk melebihi stok tersedia.
+url: "{{base_url}}/cart"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"product_id\": 1,\r
+
+    \  \"quantity\": 2\r
+
+    }"
+order: 2000

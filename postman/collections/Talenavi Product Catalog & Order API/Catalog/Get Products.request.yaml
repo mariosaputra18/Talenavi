@@ -1,0 +1,48 @@
+$kind: http-request
+description: |-
+  **Daftar Produk**
+
+  Endpoint ini digunakan untuk menampilkan daftar produk yang tersedia dengan fitur pagination, pencarian, filter kategori, dan pengurutan.
+
+  **Autentikasi:** Tidak diperlukan.
+
+  **Query Parameters:**
+
+  - `page`: Nomor halaman, default 1.
+      
+  - `limit`: Jumlah produk per halaman, default 10, maksimal 50.
+      
+  - `q`: Pencarian produk berdasarkan judul.
+      
+  - `category`: Filter produk berdasarkan slug kategori.
+      
+  - `sort`: Pengurutan produk, pilihan `price_asc`, `price_desc`, atau `newest`.
+      
+
+  **Respons berhasil:** Mengembalikan daftar produk beserta informasi pagination.
+url: "{{base_url}}/products?page=1&limit=10"
+method: GET
+queryParams:
+  - key: page
+    value: "1"
+    disabled: false
+    description: Halaman
+  - key: limit
+    value: "10"
+    disabled: false
+    description: Jumlah produk
+  - key: q
+    value: mouse
+    disabled: true
+    description: Pencarian judul (opsional)
+  - key: category
+    value: electronics
+    disabled: true
+    description: "\tFilter kategori (opsional)"
+  - key: sort
+    value: newest
+    disabled: true
+    description: Urutan produk
+auth:
+  type: noauth
+order: 2000

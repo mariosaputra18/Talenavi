@@ -1,0 +1,51 @@
+$kind: http-request
+name: Register
+description: |-
+  **Registrasi Pengguna**
+
+  Endpoint ini digunakan untuk mendaftarkan akun pengguna baru.
+
+  **Body Request:**
+
+  - `name`: Nama pengguna.
+      
+  - `email`: Alamat email yang valid dan belum terdaftar.
+      
+  - `password`: Kata sandi minimal 8 karakter.
+      
+
+  **Respons berhasil:** Mengembalikan data pengguna dan token autentikasi.
+
+  **Respons gagal:** Mengembalikan pesan kesalahan jika validasi gagal atau email sudah terdaftar.
+url: "{{base_url}}/register"
+method: POST
+headers:
+  - key: Accept
+    value: application/json
+    disabled: false
+  - key: Accept
+    value: application/json
+    disabled: false
+    description: ""
+  - key: Content-Type
+    value: application/json
+    disabled: false
+    description: ""
+body:
+  type: json
+  content: "{\r
+
+    \  \"name\": \"Test User\",\r
+
+    \  \"email\": \"newuser@example.com\",\r
+
+    \  \"password\": \"password123\"\r
+
+    }"
+auth:
+  type: noauth
+settings:
+  disabledSystemHeaders:
+    - accept
+    - accept-encoding
+order: 2000

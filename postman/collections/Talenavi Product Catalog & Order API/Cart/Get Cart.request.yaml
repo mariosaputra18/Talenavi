@@ -1,0 +1,14 @@
+$kind: http-request
+description: |-
+  **Lihat Keranjang Belanja**
+
+  Endpoint ini digunakan untuk menampilkan seluruh item dalam keranjang belanja milik pengguna yang sedang login.
+
+  **Autentikasi:** Bearer Token wajib disertakan.
+
+  **Respons berhasil:** Mengembalikan daftar item keranjang, detail produk, quantity setiap item, dan total harga keranjang.
+
+  **Respons gagal:** Mengembalikan status `401 Unauthorized` jika pengguna tidak terautentikasi.
+url: "{{base_url}}/cart"
+method: GET
+order: 1000

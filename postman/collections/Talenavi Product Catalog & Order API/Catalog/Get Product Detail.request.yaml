@@ -1,0 +1,21 @@
+$kind: http-request
+description: |-
+  **Detail Produk**
+
+  Endpoint ini digunakan untuk menampilkan informasi detail produk berdasarkan ID produk.
+
+  **Autentikasi:** Tidak diperlukan.
+
+  **Path Parameter:**
+
+  - `id`: ID produk yang ingin ditampilkan.
+      
+
+  **Respons berhasil:** Mengembalikan informasi detail produk beserta kategorinya.
+
+  **Respons gagal:** Mengembalikan status `404 Not Found` jika produk tidak ditemukan.
+url: "{{base_url}}/products/1"
+method: GET
+auth:
+  type: noauth
+order: 3000
