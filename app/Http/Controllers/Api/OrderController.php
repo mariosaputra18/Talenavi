@@ -29,6 +29,12 @@ class OrderController extends Controller
     // GET: Order Detail
     public function show(Request $request, $id)
     {
+        if (filter_var($id, FILTER_VALIDATE_INT) === false || (int) $id < 1) {
+            return response()->json([
+                'message' => 'Order not found.',
+            ], 404);
+        }
+
         $order = Order::where('user_id', $request->user()->id)
             ->with('items.product')
             ->find($id);

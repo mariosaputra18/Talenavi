@@ -2,6 +2,13 @@
 workspace:
   id: d895caaf-a018-46a1-8c62-49b02c399f9d
 
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+cloudResources:
+  collections:
+    ../postman/collections/Talenavi Product Catalog & Order API: 6afefcc3fc9330a96b4e22f3
+  globals:
+    ../postman/globals/workspace.globals.yaml: 1c2b598e-c2ec-4957-895f-1a6d11d8d199
+
 # All resources in the `postman/` folder are automatically registered in Local View.
 # Point to additional files outside the `postman/` folder to register them individually. Example:
 #localResources:
