@@ -1,24 +1,33 @@
 # Talenavi — Product Catalog & Order API
 
-REST API untuk aplikasi katalog produk dan pengelolaan pesanan yang dibangun menggunakan Laravel 12, PHP, dan PostgreSQL.
+REST API untuk aplikasi katalog produk dan pengelolaan pesanan yang dibangun menggunakan Laravel 12, PHP 8.2, dan PostgreSQL 16.
 
 ## Teknologi yang Digunakan
 
 - PHP 8.2
 - Laravel 12
 - PostgreSQL 16
-- Laravel Sanctum (Autentikasi)
+- Laravel Sanctum (Authentication)
 - REST API
-- Postman (Pengujian API)
+- Postman (API Testing)
+
+### Alasan Pemilihan Teknologi
+
+- **Laravel 12 & PHP 8.2** — digunakan untuk membangun REST API dengan struktur aplikasi yang terorganisasi, routing, controller, validasi request, migration, dan pengelolaan business logic.
+- **PostgreSQL 16** — dipilih sebagai database relasional karena mendukung foreign key, transaksi, integritas data, dan konsistensi data. Fitur tersebut diperlukan untuk mengelola kategori, produk, keranjang, pesanan, stok, dan proses checkout.
+- **Laravel Sanctum** — digunakan untuk autentikasi API menggunakan Bearer Token.
+- **Postman** — digunakan untuk menguji endpoint API, request, authentication, dan response.
 
 ## Persyaratan
 
+Pastikan perangkat telah memiliki:
+
 - PHP >= 8.2
 - Composer
-- PostgreSQL
+- PostgreSQL 16
 - Git
 
-## Instalasi
+## Instalasi dan Konfigurasi
 
 ### 1. Clone Repository
 
@@ -35,13 +44,13 @@ composer install
 
 ### 3. Konfigurasi Environment
 
-Salin file konfigurasi environment:
+Salin file environment:
 
 ```bash
 cp .env.example .env
 ```
 
-Buat application key:
+Generate application key:
 
 ```bash
 php artisan key:generate
@@ -55,18 +64,34 @@ DB_HOST=127.0.0.1
 DB_PORT=5432
 DB_DATABASE=talenavi_db
 DB_USERNAME=postgres
-DB_PASSWORD=your_password
+DB_PASSWORD=
 ```
 
-### 4. Jalankan Migration
+Sesuaikan `DB_USERNAME` dan `DB_PASSWORD` dengan konfigurasi PostgreSQL lokal.
 
-Buat tabel database menggunakan migration:
+### 4. Setup Database
+
+Buat database PostgreSQL bernama `talenavi_db`.
+
+Menggunakan PostgreSQL command line:
+
+```sql
+CREATE DATABASE talenavi_db;
+```
+
+Pastikan database telah dibuat dan konfigurasi koneksi pada `.env` sudah sesuai.
+
+Project ini menggunakan PostgreSQL lokal dan tidak menggunakan Supabase.
+
+### 5. Jalankan Database Migration
+
+Buat struktur tabel database berdasarkan migration yang tersedia:
 
 ```bash
 php artisan migrate
 ```
 
-### 5. Seed Database
+### 6. Jalankan Database Seeder
 
 Masukkan data awal ke database:
 
@@ -80,9 +105,11 @@ Seeder menyediakan:
 - 30 produk
 - 1 akun pengguna untuk pengujian
 
-Seeder dapat dijalankan kembali tanpa membuat duplikasi data awal kategori dan produk.
+Seeder kategori dan produk dirancang agar dapat dijalankan kembali tanpa membuat duplikasi data awal.
 
-### 6. Jalankan Aplikasi
+### 7. Jalankan Aplikasi
+
+Jalankan development server Laravel:
 
 ```bash
 php artisan serve
@@ -99,8 +126,6 @@ API Base URL:
 ```text
 http://127.0.0.1:8000/api
 ```
-
----
 
 ## API Endpoints
 
@@ -136,7 +161,7 @@ http://127.0.0.1:8000/api
 | `category` | Memfilter berdasarkan slug kategori |
 | `sort` | Mengurutkan berdasarkan `price_asc`, `price_desc`, atau `newest` |
 
-Contoh:
+Contoh request:
 
 ```http
 GET /api/products?page=1&limit=10&q=mouse&sort=price_asc
@@ -163,11 +188,9 @@ Seluruh endpoint pesanan memerlukan autentikasi.
 | GET | `/api/orders` | Mendapatkan riwayat pesanan pengguna |
 | GET | `/api/orders/{id}` | Mendapatkan detail pesanan |
 
----
-
 ## Autentikasi
 
-Endpoint yang dilindungi menggunakan autentikasi Laravel Sanctum Bearer Token.
+Endpoint yang dilindungi menggunakan Laravel Sanctum Bearer Token.
 
 Sertakan token pada request header:
 
@@ -178,7 +201,7 @@ Accept: application/json
 
 Token autentikasi yang valid diperlukan untuk mengakses endpoint yang dilindungi. Request tanpa token valid akan ditolak.
 
----
+Token diperoleh melalui endpoint login dan digunakan pada endpoint yang memerlukan autentikasi.
 
 ## Contoh Request API
 
@@ -279,8 +302,6 @@ Memerlukan Bearer Token yang valid.
 
 Proses checkout mengambil data keranjang pengguna yang sedang login, membuat pesanan dan item pesanan, memperbarui stok produk, serta mengosongkan keranjang setelah transaksi berhasil.
 
----
-
 ## Response & Error Handling
 
 API menggunakan HTTP status code untuk menunjukkan hasil request.
@@ -331,8 +352,6 @@ Ketika resource yang diminta tidak tersedia atau tidak dapat diakses oleh penggu
 
 Checkout melakukan validasi terhadap keranjang dan stok produk sebelum menyelesaikan transaksi. Checkout tidak dapat diselesaikan apabila keranjang kosong atau stok produk tidak mencukupi.
 
----
-
 ## Database
 
 Aplikasi menggunakan PostgreSQL 16 sebagai sistem manajemen basis data relasional.
@@ -363,7 +382,7 @@ PostgreSQL dipilih karena mendukung pengelolaan data relasional, foreign key con
 
 ### Database Migration
 
-Buat struktur tabel database menggunakan Laravel migrations:
+Struktur tabel database dibuat menggunakan Laravel migrations:
 
 ```bash
 php artisan migrate
@@ -371,19 +390,53 @@ php artisan migrate
 
 ### Database Seeding
 
-Masukkan data awal untuk pengujian:
+Data awal untuk pengujian dimasukkan menggunakan Laravel seeders:
 
 ```bash
 php artisan db:seed
 ```
 
----
+## Pengujian dan Dokumentasi API menggunakan Postman
 
-## Pengujian API
+API dapat diuji menggunakan Postman dengan file Collection dan Environment yang tersedia di repository.
 
-Endpoint API dapat diuji menggunakan Postman.
+### File Postman
 
-API mendukung:
+File Postman tersedia di:
+
+```text
+postman/exports/
+├── Talenavi_Product_Catalog_Order_API.postman_collection.json
+└── Talenavi_Local.postman_environment.json
+```
+
+### Cara Membuka Postman Collection
+
+1. Jalankan aplikasi Talenavi menggunakan `php artisan serve`.
+2. Buka Postman.
+3. Klik **Import**.
+4. Pilih file `Talenavi_Product_Catalog_Order_API.postman_collection.json`.
+5. Import file `Talenavi_Local.postman_environment.json` dengan cara yang sama.
+6. Pilih environment **Talenavi Local** pada environment selector Postman.
+7. Pastikan variabel `base_url` mengarah ke:
+
+   ```text
+   http://127.0.0.1:8000/api
+   ```
+
+8. Jalankan request **Login** untuk mendapatkan token autentikasi.
+9. Gunakan request API lainnya untuk menguji fitur yang tersedia.
+
+Collection mengelompokkan request berdasarkan:
+
+- Auth
+- Catalog
+- Cart
+- Orders
+
+Environment menyediakan variabel `base_url` dan `token` untuk konfigurasi request API lokal dan autentikasi.
+
+### Fitur yang Dapat Diuji
 
 - Registrasi dan autentikasi pengguna
 - Autentikasi dan otorisasi menggunakan Bearer Token
@@ -398,19 +451,17 @@ API mendukung:
 - Validasi request dan penanganan error
 - Validasi stok produk saat checkout
 
----
-
 ## Struktur Project
 
 Aplikasi menggunakan struktur project Laravel dengan pemisahan route API, controller, model, migration database, seeder, dan business logic.
 
-- `app/` — Logika aplikasi, controller, model, dan service
-- `routes/` — Definisi route API
-- `database/migrations/` — Definisi struktur database
-- `database/seeders/` — Data awal database
-- `postman/` — Resource Postman Collection lokal
-
----
+| Direktori | Deskripsi |
+|---|---|
+| `app/` | Logika aplikasi, controller, model, dan service |
+| `routes/` | Definisi route API |
+| `database/migrations/` | Definisi struktur database |
+| `database/seeders/` | Data awal database |
+| `postman/` | Postman Collection lokal dan file export JSON |
 
 ## Repository
 
