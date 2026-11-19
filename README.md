@@ -1,24 +1,24 @@
 # Talenavi — Product Catalog & Order API
 
-REST API for a Product Catalog and Order Management application built with Laravel 12, PHP, and PostgreSQL.
+REST API untuk aplikasi katalog produk dan pengelolaan pesanan yang dibangun menggunakan Laravel 12, PHP, dan PostgreSQL.
 
-## Tech Stack
+## Teknologi yang Digunakan
 
 - PHP 8.2
 - Laravel 12
 - PostgreSQL 16
-- Laravel Sanctum (Authentication)
+- Laravel Sanctum (Autentikasi)
 - REST API
-- Postman (API Testing)
+- Postman (Pengujian API)
 
-## Requirements
+## Persyaratan
 
 - PHP >= 8.2
 - Composer
 - PostgreSQL
 - Git
 
-## Installation
+## Instalasi
 
 ### 1. Clone Repository
 
@@ -33,21 +33,21 @@ cd Talenavi
 composer install
 ```
 
-### 3. Environment Configuration
+### 3. Konfigurasi Environment
 
-Copy the environment configuration file:
+Salin file konfigurasi environment:
 
 ```bash
 cp .env.example .env
 ```
 
-Generate the application key:
+Buat application key:
 
 ```bash
 php artisan key:generate
 ```
 
-Configure the database connection in the `.env` file:
+Sesuaikan konfigurasi database pada file `.env`:
 
 ```env
 DB_CONNECTION=pgsql
@@ -58,9 +58,9 @@ DB_USERNAME=postgres
 DB_PASSWORD=your_password
 ```
 
-### 4. Run Migration
+### 4. Jalankan Migration
 
-Create the database tables:
+Buat tabel database menggunakan migration:
 
 ```bash
 php artisan migrate
@@ -68,21 +68,21 @@ php artisan migrate
 
 ### 5. Seed Database
 
-Populate the database with initial data:
+Masukkan data awal ke database:
 
 ```bash
 php artisan db:seed
 ```
 
-The seeders provide:
+Seeder menyediakan:
 
-- 5 product categories
-- 30 products
-- 1 test user
+- 5 kategori produk
+- 30 produk
+- 1 akun pengguna untuk pengujian
 
-The seeders can be executed again without creating duplicate initial category and product records.
+Seeder dapat dijalankan kembali tanpa membuat duplikasi data awal kategori dan produk.
 
-### 6. Run Application
+### 6. Jalankan Aplikasi
 
 ```bash
 php artisan serve
@@ -104,85 +104,85 @@ http://127.0.0.1:8000/api
 
 ## API Endpoints
 
-### Authentication
+### Authentication (Autentikasi)
 
-| Method | Endpoint | Description | Authentication |
+| Method | Endpoint | Deskripsi | Autentikasi |
 |---|---|---|---|
-| POST | `/api/register` | Register a new user | No |
-| POST | `/api/login` | Authenticate user | No |
-| GET | `/api/me` | Get authenticated user | Required |
-| POST | `/api/logout` | Logout authenticated user | Required |
+| POST | `/api/register` | Mendaftarkan pengguna baru | Tidak |
+| POST | `/api/login` | Melakukan autentikasi pengguna | Tidak |
+| GET | `/api/me` | Mendapatkan data pengguna yang sedang login | Wajib |
+| POST | `/api/logout` | Logout pengguna | Wajib |
 
-### Categories
+### Categories (Kategori)
 
-| Method | Endpoint | Description | Authentication |
+| Method | Endpoint | Deskripsi | Autentikasi |
 |---|---|---|---|
-| GET | `/api/categories` | Get all categories | No |
+| GET | `/api/categories` | Mendapatkan seluruh kategori | Tidak |
 
-### Products
+### Products (Produk)
 
-| Method | Endpoint | Description | Authentication |
+| Method | Endpoint | Deskripsi | Autentikasi |
 |---|---|---|---|
-| GET | `/api/products` | Get products with pagination, search, filtering, and sorting | No |
-| GET | `/api/products/{id}` | Get product detail | No |
+| GET | `/api/products` | Mendapatkan daftar produk dengan pagination, pencarian, filter, dan pengurutan | Tidak |
+| GET | `/api/products/{id}` | Mendapatkan detail produk | Tidak |
 
-#### Product Query Parameters
+#### Parameter Query Produk
 
-| Parameter | Description |
+| Parameter | Deskripsi |
 |---|---|
-| `page` | Page number |
-| `limit` | Number of items per page (maximum 50) |
-| `q` | Search by product title |
-| `category` | Filter by category slug |
-| `sort` | Sort by `price_asc`, `price_desc`, or `newest` |
+| `page` | Nomor halaman |
+| `limit` | Jumlah item per halaman (maksimal 50) |
+| `q` | Mencari berdasarkan judul produk |
+| `category` | Memfilter berdasarkan slug kategori |
+| `sort` | Mengurutkan berdasarkan `price_asc`, `price_desc`, atau `newest` |
 
-Example:
+Contoh:
 
 ```http
 GET /api/products?page=1&limit=10&q=mouse&sort=price_asc
 ```
 
-### Cart
+### Cart (Keranjang)
 
-All cart endpoints require authentication.
+Seluruh endpoint keranjang memerlukan autentikasi.
 
-| Method | Endpoint | Description |
+| Method | Endpoint | Deskripsi |
 |---|---|---|
-| GET | `/api/cart` | Get authenticated user's cart |
-| POST | `/api/cart` | Add a product to cart |
-| PUT | `/api/cart/{id}` | Update cart item quantity |
-| DELETE | `/api/cart/{id}` | Remove cart item |
+| GET | `/api/cart` | Mendapatkan keranjang pengguna yang sedang login |
+| POST | `/api/cart` | Menambahkan produk ke keranjang |
+| PUT | `/api/cart/{id}` | Memperbarui jumlah produk dalam keranjang |
+| DELETE | `/api/cart/{id}` | Menghapus item dari keranjang |
 
-### Orders
+### Orders (Pesanan)
 
-All order endpoints require authentication.
+Seluruh endpoint pesanan memerlukan autentikasi.
 
-| Method | Endpoint | Description |
+| Method | Endpoint | Deskripsi |
 |---|---|---|
-| POST | `/api/checkout` | Checkout cart and create an order |
-| GET | `/api/orders` | Get authenticated user's order history |
-| GET | `/api/orders/{id}` | Get order detail |
+| POST | `/api/checkout` | Memproses checkout keranjang dan membuat pesanan |
+| GET | `/api/orders` | Mendapatkan riwayat pesanan pengguna |
+| GET | `/api/orders/{id}` | Mendapatkan detail pesanan |
 
 ---
 
-## Authentication
+## Autentikasi
 
-Protected endpoints use Laravel Sanctum Bearer Token authentication.
+Endpoint yang dilindungi menggunakan autentikasi Laravel Sanctum Bearer Token.
 
-Include the token in the request header:
+Sertakan token pada request header:
 
 ```http
 Authorization: Bearer YOUR_TOKEN
 Accept: application/json
 ```
 
-A valid authentication token is required to access protected endpoints. Requests without a valid token will be rejected.
+Token autentikasi yang valid diperlukan untuk mengakses endpoint yang dilindungi. Request tanpa token valid akan ditolak.
 
 ---
 
-## API Request Examples
+## Contoh Request API
 
-### 1. Register
+### 1. Register (Pendaftaran)
 
 Endpoint:
 
@@ -218,9 +218,9 @@ Request body:
 }
 ```
 
-Use the authentication token returned by login for protected endpoints.
+Gunakan token autentikasi yang diperoleh dari login untuk mengakses endpoint yang memerlukan autentikasi.
 
-### 3. Get Products
+### 3. Mendapatkan Daftar Produk
 
 Endpoint:
 
@@ -228,9 +228,9 @@ Endpoint:
 GET /api/products?page=1&limit=10
 ```
 
-This endpoint supports pagination, product title search, category filtering, and sorting.
+Endpoint ini mendukung pagination, pencarian judul produk, filter kategori, dan pengurutan produk.
 
-### 4. Add to Cart
+### 4. Menambahkan Produk ke Keranjang
 
 Endpoint:
 
@@ -247,9 +247,9 @@ Request body:
 }
 ```
 
-Requires a valid Bearer Token.
+Memerlukan Bearer Token yang valid.
 
-### 5. Update Cart Item
+### 5. Memperbarui Item Keranjang
 
 Endpoint:
 
@@ -265,7 +265,7 @@ Request body:
 }
 ```
 
-Requires a valid Bearer Token.
+Memerlukan Bearer Token yang valid.
 
 ### 6. Checkout
 
@@ -275,28 +275,28 @@ Endpoint:
 POST /api/checkout
 ```
 
-Requires a valid Bearer Token.
+Memerlukan Bearer Token yang valid.
 
-Checkout processes the authenticated user's cart, creates an order and order items, updates product stock, and clears the cart upon successful completion.
+Proses checkout mengambil data keranjang pengguna yang sedang login, membuat pesanan dan item pesanan, memperbarui stok produk, serta mengosongkan keranjang setelah transaksi berhasil.
 
 ---
 
 ## Response & Error Handling
 
-The API uses HTTP status codes to indicate the result of a request.
+API menggunakan HTTP status code untuk menunjukkan hasil request.
 
-| Status Code | Description |
+| Status Code | Deskripsi |
 |---|---|
-| `200 OK` | Request successful |
-| `201 Created` | Resource successfully created |
-| `401 Unauthorized` | Authentication required or invalid authentication |
-| `404 Not Found` | Resource not found |
-| `422 Unprocessable Entity` | Request validation failed |
-| `500 Internal Server Error` | Unexpected server error |
+| `200 OK` | Request berhasil |
+| `201 Created` | Resource berhasil dibuat |
+| `401 Unauthorized` | Autentikasi diperlukan atau autentikasi tidak valid |
+| `404 Not Found` | Resource tidak ditemukan |
+| `422 Unprocessable Entity` | Validasi request gagal |
+| `500 Internal Server Error` | Terjadi kesalahan server yang tidak terduga |
 
-### Validation Error
+### Validation Error (Kesalahan Validasi)
 
-Example of a validation error response:
+Contoh response ketika validasi gagal:
 
 ```json
 {
@@ -309,61 +309,61 @@ Example of a validation error response:
 }
 ```
 
-### Unauthorized Request
+### Unauthorized Request (Request Tidak Terautentikasi)
 
-Protected endpoints require a valid authentication token.
+Endpoint yang dilindungi memerlukan token autentikasi yang valid.
 
-Requests without valid authentication are rejected with:
+Request tanpa autentikasi yang valid akan ditolak dengan status:
 
 ```http
 401 Unauthorized
 ```
 
-### Resource Not Found
+### Resource Not Found (Data Tidak Ditemukan)
 
-When the requested resource does not exist or is not accessible to the authenticated user, the API returns:
+Ketika resource yang diminta tidak tersedia atau tidak dapat diakses oleh pengguna yang sedang login, API mengembalikan:
 
 ```http
 404 Not Found
 ```
 
-### Checkout Error
+### Checkout Error (Kesalahan Checkout)
 
-Checkout validates the cart and product stock before completing the transaction. Checkout cannot be completed when the cart is empty or product stock is insufficient.
+Checkout melakukan validasi terhadap keranjang dan stok produk sebelum menyelesaikan transaksi. Checkout tidak dapat diselesaikan apabila keranjang kosong atau stok produk tidak mencukupi.
 
 ---
 
 ## Database
 
-The application uses PostgreSQL 16 as its relational database management system.
+Aplikasi menggunakan PostgreSQL 16 sebagai sistem manajemen basis data relasional.
 
-### Database Justification
+### Alasan Pemilihan Database
 
-PostgreSQL was selected because it provides relational data management, foreign key constraints, transaction support, and data integrity. These capabilities are important for a product catalog and order system, particularly when managing product stock, shopping carts, and checkout transactions.
+PostgreSQL dipilih karena mendukung pengelolaan data relasional, foreign key constraints, transaksi, dan integritas data. Fitur-fitur tersebut penting untuk sistem katalog produk dan pesanan, khususnya dalam mengelola stok produk, keranjang belanja, dan transaksi checkout.
 
-### Database Structure
+### Struktur Database
 
-| Table | Description |
+| Tabel | Deskripsi |
 |---|---|
-| `users` | Stores user accounts and authentication data |
-| `categories` | Stores product categories |
-| `products` | Stores product information, prices, and stock |
-| `cart_items` | Stores products and quantities in users' shopping carts |
-| `orders` | Stores order information and total prices |
-| `order_items` | Stores products, quantities, and price snapshots for each order |
+| `users` | Menyimpan akun pengguna dan data autentikasi |
+| `categories` | Menyimpan kategori produk |
+| `products` | Menyimpan informasi produk, harga, dan stok |
+| `cart_items` | Menyimpan produk dan jumlahnya dalam keranjang pengguna |
+| `orders` | Menyimpan informasi pesanan dan total harga |
+| `order_items` | Menyimpan produk, jumlah, dan snapshot harga pada setiap pesanan |
 
-### Database Relationships
+### Relasi Database
 
-- One user can have multiple cart items.
-- One user can have multiple orders.
-- One category can have multiple products.
-- One product can appear in multiple cart items.
-- One order can contain multiple order items.
-- One product can appear in multiple order items.
+- Satu pengguna dapat memiliki beberapa item keranjang.
+- Satu pengguna dapat memiliki beberapa pesanan.
+- Satu kategori dapat memiliki beberapa produk.
+- Satu produk dapat terdapat dalam beberapa item keranjang.
+- Satu pesanan dapat memiliki beberapa item pesanan.
+- Satu produk dapat terdapat dalam beberapa item pesanan.
 
 ### Database Migration
 
-Create the database schema using Laravel migrations:
+Buat struktur tabel database menggunakan Laravel migrations:
 
 ```bash
 php artisan migrate
@@ -371,7 +371,7 @@ php artisan migrate
 
 ### Database Seeding
 
-Populate the database with initial testing data:
+Masukkan data awal untuk pengujian:
 
 ```bash
 php artisan db:seed
@@ -379,36 +379,36 @@ php artisan db:seed
 
 ---
 
-## API Testing
+## Pengujian API
 
-API endpoints can be tested using Postman.
+Endpoint API dapat diuji menggunakan Postman.
 
-The API supports:
+API mendukung:
 
-- User registration and authentication
-- Authentication and authorization using Bearer Tokens
-- Product listing and pagination
-- Product title search
-- Category filtering
-- Product sorting
-- Product detail
-- Cart management
-- Checkout and order creation
-- Order history and order detail
-- Request validation and error handling
-- Product stock validation during checkout
+- Registrasi dan autentikasi pengguna
+- Autentikasi dan otorisasi menggunakan Bearer Token
+- Daftar produk dan pagination
+- Pencarian judul produk
+- Filter kategori
+- Pengurutan produk
+- Detail produk
+- Pengelolaan keranjang
+- Checkout dan pembuatan pesanan
+- Riwayat pesanan dan detail pesanan
+- Validasi request dan penanganan error
+- Validasi stok produk saat checkout
 
 ---
 
-## Project Structure
+## Struktur Project
 
-The application follows Laravel's project structure and separates API routes, controllers, models, database migrations, seeders, and business logic.
+Aplikasi menggunakan struktur project Laravel dengan pemisahan route API, controller, model, migration database, seeder, dan business logic.
 
-- `app/` — Application logic, controllers, models, and services
-- `routes/` — API route definitions
-- `database/migrations/` — Database schema definitions
-- `database/seeders/` — Initial database data
-- `postman/` — Local Postman collection resources
+- `app/` — Logika aplikasi, controller, model, dan service
+- `routes/` — Definisi route API
+- `database/migrations/` — Definisi struktur database
+- `database/seeders/` — Data awal database
+- `postman/` — Resource Postman Collection lokal
 
 ---
 
